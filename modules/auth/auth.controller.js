@@ -3,12 +3,18 @@ const User = require("../user/user.model");
 const bcrypt = require("bcrypt");
 const roles = require("../auth/roles.list");
 const jwt = require("jsonwebtoken");
+const { body, validationResult } = require("express-validator");
 
 class AuthController {
   async registration(req, res) {
     try {
       const { userName, password } = req.body;
+
+      if (body(userName).isEmpty()) {
+        return res.status(401).json({ error: "Invalid name" });
+      }
       const candidate = await User.findOne({ userName });
+      
       if (candidate) {
         return res
           .status(400)
@@ -18,7 +24,7 @@ class AuthController {
       const user = new User({
         userName: userName,
         password: hashPassword,
-        role: roles.ADMIN,
+        role: roles.BOSS,
       });
       await user.save();
       return res.status(200).json({ message: "User has been registered." });

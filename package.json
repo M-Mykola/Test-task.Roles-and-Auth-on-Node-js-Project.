@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "seeds": "node seeds.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
     "bcrypt": "^5.0.1",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "express-validator": "^6.14.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.5.0",
     "nodemon": "^2.0.19"
