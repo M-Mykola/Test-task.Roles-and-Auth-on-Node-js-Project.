@@ -4,7 +4,7 @@ const roles = require("../auth/roles.list");
 const jwt = require("jsonwebtoken");
 
 const UserController = {
-  async getUserList(req, res, token) {
+  async getUserList(req, res) {
     try {
       const token =
         req.body.token || req.query.token || req.headers["x-access-token"];
@@ -18,9 +18,11 @@ const UserController = {
       if (req.user.role === "ADMIN") {
         const allUsers = await User.find();
         return res.status(200).send(allUsers);
+
       } else if (req.user.role === "BOSS") {
         const users = await User.find({ role: "USER" });
         return res.status(200).send(users);
+
       } else if (req.user.role === "USER") {
         const candidate = await User.findOne(req.user);
         return res.status(200).send(candidate);
