@@ -10,11 +10,11 @@ class AuthController {
     try {
       const { userName, password } = req.body;
 
-      if (body(userName).isEmpty()) {
+      if (!body(req.body.userName).isEmpty()) {
         return res.status(401).json({ error: "Invalid name" });
       }
       const candidate = await User.findOne({ userName });
-      
+
       if (candidate) {
         return res
           .status(400)
